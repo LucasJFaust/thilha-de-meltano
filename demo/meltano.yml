@@ -12,6 +12,11 @@ plugins:
     pip_url: meltanolabs-tap-postgres
     config:
       sqlalchemy_url: postgresql://northwind_user:password@localhost:5432/northwind
-      schema: public # <<< ADICIONE ESTA LINHA AQUI
-      select:
-      - public-suppliers.*
+      schema: public # Esta linha fica dentro de 'config'
+    select: # <--- MUITO IMPORTANTE: ESTA LINHA 'select' DEVE ESTAR ALINHADA COM 'config'
+      - "public-suppliers.*" # Seleciona todas as colunas da tabela public-suppliers
+      - "!*" # Exclui TUDO o que não foi explicitamente selecionado acima (ou seja, todo o information_schema e outras tabelas)
+  loaders:
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
