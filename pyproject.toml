@@ -8,6 +8,7 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.11,<3.15"
 dependencies = [
+    "meltano (>=3.9.1,<4.0.0)"
 ]
 
 
