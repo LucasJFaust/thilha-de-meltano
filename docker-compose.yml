@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:12
+    environment:
+      POSTGRES_USER: northwind_user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: northwind
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+      - ./data/northwind.sql:/tmp/northwind.sql
+      - ./data/order_details.csv:/var/order_details.csv
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U northwind_user -d northwind"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  db-init:
+    image: postgres:12
+    environment:
+      PGPASSWORD: password # Mantenha esta linha, ela não prejudica
+    command: >
+      bash -c "
+        export PGPASSWORD=password; # <<< ADICIONE ESTA LINHA AQUI
+        set -e;
+        echo 'Aguardando o serviço de banco de dados (db) ficar saudável...';
+        until pg_isready -h db -U northwind_user -d northwind; do
+          echo 'PostgreSQL ainda não está pronto...';
+          sleep 2;
+        done;
+        echo 'PostgreSQL está pronto. Importando northwind.sql...';
+        psql -h db -U northwind_user -d northwind -f /tmp/northwind.sql;
+        echo 'northwind.sql importado com sucesso!';
+      "
+    volumes:
+      - ./data/northwind.sql:/tmp/northwind.sql
+    depends_on:
+      db:
+        condition: service_healthy
