@@ -15,3 +15,7 @@ plugins:
       schema: public # <<< ADICIONE ESTA LINHA AQUI
       select:
       - public-suppliers.*
+  loaders:
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
