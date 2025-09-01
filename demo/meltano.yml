@@ -1,0 +1,14 @@
+version: 1
+default_environment: dev
+project_id: 0199069f-a82c-7e5a-a73e-3536fe32cc16
+environments:
+- name: dev
+- name: staging
+- name: prod
+plugins:
+  extractors:
+  - name: tap-postgres
+    variant: meltanolabs
+    pip_url: meltanolabs-tap-postgres
+    config:
+      sqlalchemy_url: postgresql://northwind_user:password@localhost:5432/northwind
