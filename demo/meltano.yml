@@ -12,3 +12,6 @@ plugins:
     pip_url: meltanolabs-tap-postgres
     config:
       sqlalchemy_url: postgresql://northwind_user:password@localhost:5432/northwind
+      schema: public # <<< ADICIONE ESTA LINHA AQUI
+      select:
+      - public-suppliers.*
