@@ -1,0 +1,24 @@
+default_environment: dev
+environments:
+  # Creation of environments
+  - name: dev
+    # 'env' indentation receives variables to export to meltano pipelines
+    env:
+      #To Use environment variables coming from .env or another source use
+      VARIABLE: ${variable_for_dev_tests}
+      #For Azure State Backend
+      AZURE_CONN_STATE_BACKEND: ${AZURE_CONNECTION_STRING_STATE_BACKEND_DEV}
+      #For AWS State Backend
+      AWS_KEY_ID_STATE_BACKEND: ${AWS_ACCESS_KEY_ID_STATE_BACKEND_DEV}
+      AWS_SECRET_STATE_BACKEND: ${AWS_SECRET_KEY_STATE_BACKEND_DEV}
+
+  - name: prod
+    env:
+      #Place your 'prod' variables here
+      VARIABLE: ${variable_for_prod_deployment}
+      #For Azure State Backend
+      AZURE_CONN_STATE_BACKEND: ${AZURE_CONNECTION_STRING_STATE_BACKEND_PROD}
+      #For AWS State Backend
+      AWS_KEY_ID_STATE_BACKEND: ${AWS_ACCESS_KEY_ID_STATE_BACKEND_PROD}
+      AWS_SECRET_STATE_BACKEND: ${AWS_SECRET_KEY_STATE_BACKEND_PROD}
+

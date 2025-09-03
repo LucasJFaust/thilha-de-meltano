@@ -1,0 +1,35 @@
+#Main file for the meltano project
+version: 1
+
+#Uncomment the paths of files that you will use for your project
+include_paths:
+  - env_config.yml
+  # - ./pipelines/**/*.yml
+  # - ./plugins/custom/custom_config.yml
+<<<<<<< Updated upstream
+  # - ./plugins/extractors/extractors_config.yml
+  # - ./plugins/loaders/loaders_config.yml
+=======
+- ./plugins/extractors/extractors_config.yml
+  - ./plugins/loaders/loaders_config.yml
+>>>>>>> Stashed changes
+  # - ./plugins/mappers/mappers_config.yml
+
+#This section configures the buckets to store the state files
+# state_backend:
+
+# #Azure state_backend
+#   uri: azure://<your container_name>/<prefix for state JSON blobs>
+#   azure:
+#     connection_string: ${AZURE_CONN_STATE_BACKEND}
+
+# #AWS state_backend
+# uri: s3://<bucket-name>/<prefix for state JSON blobs>
+# s3:
+#   aws_access_key_id: ${AWS_KEY_ID_STATE_BACKEND}
+#   aws_secret_access_key: ${AWS_SECRET_STATE_BACKEND}
+
+# #GCP state_backend
+# uri: gs://<your bucket name>/<prefix for state JSON blobs>
+# gcs:
+#   application_credentials: ${GCP_CREDENTIALS_STATE_BACKEND}

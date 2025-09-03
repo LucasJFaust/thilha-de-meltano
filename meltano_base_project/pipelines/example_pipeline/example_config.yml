@@ -1,0 +1,36 @@
+#EXAMPLE:
+
+# plugins:
+#   extractors:
+#   - name: tap-postgres--categories
+#     inherit_from: tap-postgres
+#     config:
+#       port: ${VAR_IN_DB_PORT}
+#     select:
+#     - public-categories.*
+
+#   loaders:
+#   - name: jsonl--categories
+#     inherit_from: jsonl
+
+#   mappers:
+#   - name: general-map
+#     inherit_from: meltano-map-transformer
+#     mappings:
+#     - name: map-categories
+#       config:
+#         stream_maps:
+#           public-categories:
+#             category_id: category_id
+#             category_name: category_name
+#             __filter__: category_id > 4
+#             __else__: __NULL__
+
+#In this job section, an 'alias' is created, then the tap --> target run can be called by it's alias.
+#To run this pipeline using Meltano CLI, 'meltano environment={your_environment} run categories-pipeline', replacing your_environment by the value of interest
+
+# jobs:
+# - name: categories-pipeline
+#   tasks:
+#   - tap-postgres--categories map-categories jsonl--categories
+
