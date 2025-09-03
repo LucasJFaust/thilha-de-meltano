@@ -6,13 +6,8 @@ include_paths:
   - env_config.yml
   # - ./pipelines/**/*.yml
   # - ./plugins/custom/custom_config.yml
-<<<<<<< Updated upstream
-  # - ./plugins/extractors/extractors_config.yml
-  # - ./plugins/loaders/loaders_config.yml
-=======
-- ./plugins/extractors/extractors_config.yml
+  - ./plugins/extractors/extractors_config.yml
   - ./plugins/loaders/loaders_config.yml
->>>>>>> Stashed changes
   # - ./plugins/mappers/mappers_config.yml
 
 #This section configures the buckets to store the state files
