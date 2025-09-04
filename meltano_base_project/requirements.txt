@@ -1,0 +1,5 @@
+# Select the cloud you are going to use and then unconmment the selected one
+
+# meltano[azure]
+# meltano[s3]
+# meltano[gcs]

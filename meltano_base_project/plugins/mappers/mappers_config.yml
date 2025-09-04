@@ -1,0 +1,11 @@
+#File to place global mappers configurations
+
+#EXAMPLE : Global configuration of a mapper-plugin named 'meltano-map-transformer'
+# plugins:
+#   mappers:
+#   - name: meltano-map-transformer
+#     pip_url: git+https://github.com/MeltanoLabs/meltano-map-transform.git
+#     executable: meltano-map-transform
+#     settings:
+#     - name: stream_maps
+#       kind: object

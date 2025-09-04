@@ -1,0 +1,21 @@
+# jobs:
+# - name: ci-pipeline
+#   tasks:
+#   - tap-totango--accounts target-snowflake--totango # totango-pipeline--accounts
+#   - tap-totango--events target-snowflake--totango # totango-pipeline--events
+#   - tap-totango--users target-snowflake--totango # totango-pipeline--users
+#   - tap-totango--touchpoint_types target-snowflake--totango # totango-pipeline--touchpoint_types
+#   - tap-totango--touchpoint_tags target-snowflake--totango # totango-pipeline--touchpoint_tags
+#   - tap-totango--touchpoints target-snowflake--totango # totango-pipeline--touchpoints
+#   - tap-google-analytics--web_traffic target-snowflake--ga4 # google-analytics-pipeline--web_traffic
+#   - tap-google-analytics--page_path target-snowflake--ga4 # google-analytics-pipeline--page_path
+#   - tap-cvent--events target-snowflake--cvent # cvent-pipeline
+#   - tap-okta--users target-snowflake--okta # okta-pipeline
+#   - tap-spreadsheets-anywhere--jenkins target-snowflake--jenkins # jenkins-pipeline
+#   - tap-spreadsheets-anywhere--checkmarx_projects target-snowflake--checkmarx # projects-pipeline
+#   - tap-spreadsheets-anywhere--checkmarx_findings target-snowflake--checkmarx # findings-pipeline
+#   - tap-okta--users target-snowflake--okta # sf-pipeline
+#   - tap-google-search-console--page target-snowflake--gsc # gsc-pipeline--page
+#   - tap-google-search-console--date target-snowflake--gsc # gsc-pipeline--date
+#   - tap-google-search-console--device target-snowflake--gsc # gsc-pipeline--device
+#   - tap-google-search-console--query target-snowflake--gsc # gsc-pipeline--query

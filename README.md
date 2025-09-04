@@ -178,4 +178,56 @@ cat output/public_suppliers.jsonl | head -n 5
 ```
 
 > **Explicação:** Exibe as primeiras 5 linhas do arquivo JSONL, permitindo que você verifique se os dados da tabela `suppliers` foram extraídos corretamente.
+
+# Meltano Based Project
+Nesse momento vamos olhar para o projeto clonado do repositório [trilha-de-meltano](git@bitbucket.org-indicium:indiciumtech/meltano_base_project.git).
+
+Para instalarmos plugins que estão apenas listados e não foram instalados anteriormente usamos o comando:
+```bash
+meltano install
 ```
+Esse comando lê o arquivo `meltano.yml` e instala todos os plugins listados, mas que ainda não foram instalados.
+Contúdo antes de executarmos o comando é necessário descomentar a seguinte liha no arquivo `meltano.yml`:
+```yaml
+  - ./plugins/extractors/extractors_config.yml
+```
+Além disso, fomos na pasta `plugins/extractors` e criamos o arquivo `extractors_config.yml` com o seguinte conteúdo:
+```yaml# Configuração do tap-postgres para o projeto Meltano Base
+- name: tap-postgres
+  variant: meltanolabs
+  pip_url: meltanolabs-tap-postgres
+  config:
+    sqlalchemy_url: postgresql://northwind_user:password@localhost:5432/northwind
+    schema: public
+  select:
+    - "public-suppliers.*"
+    - "!*"
+```
+> **Explicação:** O comando `meltano install` lê o arquivo `meltano.yml` e instala todos os plugins listados, mas que ainda não foram instalados. A configuração do `tap-postgres` no arquivo `extractors_config.yml` é crucial para garantir que apenas a tabela `suppliers` do esquema `public` seja extraída, evitando problemas com tabelas de metadados.
+
+Ao executarmos o comando `meltano install` obtivemos o seguinte output:
+```bash$
+PluginDefinitionNotFoundError: Extractor 'tap-postgres' is not known to Meltano. Try running `meltano lock --update --all` to ensure
+your plugins are up to date, or add a `namespace` to your plugin if it is a custom one.
+```
+Isso ocorreu porque o Meltano não reconheceu o plugin `tap-postgres` listado no arquivo `meltano.yml`.
+Para resolver esse problema, executamos o comando sugerido:
+```bash
+meltano lock --update --all
+```
+> **Explicação:** O comando `meltano lock --update --all` atualiza o arquivo `meltano.lock`, garantindo que todas as definições de plugins estejam atualizadas e reconhecidas pelo Meltano. Isso é especialmente útil quando novos plugins são adicionados ao projeto.
+
+Após executar esse comando, tentamos novamente o comando `meltano install` e dessa vez ele foi executado com sucesso, instalando o plugin `tap-postgres` e quaisquer outras dependências necessárias.
+
+Agora vamos fazer algo semelhante com o loader `target-jsonl`.
+Primeiro descomentamos a seguinte linha no arquivo `meltano.yml`:
+```yaml
+- ./plugins/loaders/loaders_config.yml
+```
+Além disso, fomos na pasta `plugins/loaders` e criamos o arquivo `loaders_config.yml` com o seguinte conteúdo:
+```yamlyaml# Configuração do target-jsonl para o projeto Meltano Base
+- name: target-jsonl
+  variant: andyh1203
+  pip_url: target-jsonl
+```
+> **Explicação:** A configuração do `target-jsonl` no arquivo `loaders_config.yml` é essencial para definir o loader que irá receber os dados extraídos pelo `tap-postgres` e salvá-los em formato JSONL.

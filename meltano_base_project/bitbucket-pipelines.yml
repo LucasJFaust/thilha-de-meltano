@@ -1,0 +1,40 @@
+
+# options:
+#   docker: true
+
+
+# image: atlassian/default-image:3
+
+# pipelines:
+#   branches:
+#     '{develop,feature/*}':
+#       - step:
+#           name: 'Build and Test'
+#           script:
+#             - docker build -t metano_registry meltano_project/ 
+ 
+#   branches:
+#     main:
+#     - step:
+#         name: Build and Deploy
+#         services:
+#           - docker
+#         script:
+#           # change directory to application folder
+#           - cd meltano_project
+#           # creates variables (timestamp, image name and tag)
+#           - export TIMESTAMP="$(date +%Y%m%d)"
+#           - export IMAGE_NAME=meltano_registry            
+#           - export TAG="$TIMESTAMP"
+#           # builds docker image from a local dockerfile
+#           - docker build -t meltano_registry .
+#           # tags image as a way to id it by the timestamp
+#           - docker tag meltano_registry meltano_registry:$TIMESTAMP
+#           # use pipe to push the image to AWS ECR
+#           - pipe: atlassian/aws-ecr-push-image:1.3.0
+#             variables:
+#               AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID  
+#               AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY 
+#               AWS_DEFAULT_REGION: us-east-1
+#               IMAGE_NAME: meltano_registry:$TIMESTAMP
+#               TAGS: "$TIMESTAMP $BITBUCKET_BUILD_NUMBER"
